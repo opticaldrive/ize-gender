@@ -1,38 +1,27 @@
 {
-  "description": "ize-gender is an extension that takes text from webpages and makes it gender :3",
-  "manifest_version": 3,
-  "name": "ize-gender",
-  "version": "1.0",
-  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/beastify",
-  "icons": {
-    "48": "icons/beasts-48.png"
-  },
-  "permissions": ["activeTab", "scripting"],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "beastify@mozilla.org",
-      "data_collection_permissions": {
-        "required": ["none"]
+    "manifest_version": 3,
+    "name": "Borderify",
+    "version": "1.0",
+  
+    "description": "Adds a red border to all webpages matching mozilla.org.",
+  
+    "icons": {
+      "48": "icons/border-48.png"
+    },
+  
+    "browser_specific_settings": {
+      "gecko": {
+        "id": "borderify@mozilla.org",
+        "data_collection_permissions": {
+          "required": ["none"]
+        }
       }
-    }
-  },
-  "action": {
-    "default_icon": "icons/beasts-32.png",
-    "theme_icons": [
+    },
+  
+    "content_scripts": [
       {
-        "light": "icons/beasts-32-light.png",
-        "dark": "icons/beasts-32.png",
-        "size": 32
+        "matches": ["*://*.mozilla.org/*"],
+        "js": ["borderify.js"]
       }
-    ],
-    "default_title": "Beastify",
-    "default_popup": "popup/choose_beast.html"
-  },
-
-  "web_accessible_resources": [
-    {
-      "resources": ["beasts/*.jpg"],
-      "matches": ["*://*/*"]
-    }
-  ]
-}
+    ]
+  }
