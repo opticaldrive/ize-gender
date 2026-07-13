@@ -4,10 +4,7 @@
     "version": "1.0",
   
     "description": "make everything gendered smh",
-  
-    "icons": {
-      "48": "icons/border-48.png"
-    },
+
   
     "browser_specific_settings": {
       "gecko": {
@@ -21,7 +18,7 @@
     "content_scripts": [
       {
         "matches": ["*://*.mozilla.org/*"],
-        "js": ["borderify.js"]
+        "js": ["ize-gender.js"]
       }
     ]
   }
