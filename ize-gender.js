@@ -3,19 +3,21 @@
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Modify_a_web_page
 // document.body.style.border = "5px solid red"; //leave for test it loads until prod
 
-const listy = ["example", "domain", "documentation", "test", "examples","Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations."];
+const unsoredlisty = ["example", "domain", "documentation", "test", "examples","Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations."];
+
+const listy = unsoredlisty.sort((a,b)=>b.length-a.length); // sort by length so longer words are matched first thnks autocomplete
 
 const par = document.createElement("span"); // dont use mark use smt else for accessbility ig
-const texttest = "example domain domain example test tes yaaaa";
+// const texttest = "example domain domain example test tes yaaaa";
 
 // const colours = {"blue": }
-let texttoHighlight = texttest;
+// let texttoHighlight = texttest;
 
-listy.forEach(word => {
-    const regex = new RegExp(`\\b${word}\\b`, 'gi');
-    texttoHighlight = texttoHighlight.replace(regex, `<span style="background-color:  rgba(85, 205, 252, 0.5);">${word}</span>`)
+// listy.forEach(word => {
+//     const regex = new RegExp(`\\b${word}\\b`, 'gi');
+//     texttoHighlight = texttoHighlight.replace(regex, `<span style="background-color:  rgba(85, 205, 252, 0.5);">${word}</span>`)
 
-});
+// });
 
 // par.textContent = "meopw";
 
