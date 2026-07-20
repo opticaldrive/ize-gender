@@ -1,7 +1,7 @@
 //// ok i genuinely hate js so much pardon the code
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Modify_a_web_page
-// document.body.style.border = "5px solid red"; //leave for test it loads until prod
+
 
 
 
@@ -10,8 +10,36 @@
 //     "pink": rgba(247, 168, 184, 1)
 // }
 
+// CSV loading code
+const csv_path = browser.runtime.getURL("assets/data.csv")
+
+fetch(csv_path)
+    .then(res=>res.text())
+    .then(text=>{
+        const lines = text.split("\n");
+        const listy = lines.map(line => line.trim()).filter(line => line.length > 0);
+        
+        const dict = {};
+        // gotta skip the header #1 bc its the header /no data
+        for (let i = 1; i < listy.length; i++) {
+            const columns = listy[i].split(",");
+            
+            const nameKey = columns[0].trim();
+            
+            dict[nameKey] = {
+                gender: columns[1].trim(),
+                score: parseFloat(columns[2].trim())
+            };
+        }
+
+        console.log(dict);
+    });
+// debug listy
+
+
 
 const unsoredlisty = ["example", "domain", "documentation", "test", "examples","orion", "power", "claude", "fable", "minecraft", "bananas", "homelab", "qwen", "who", "america", "joined", "robotics", "moonshine"];
+
 
 const listy = unsoredlisty.sort((a,b)=>b.length-a.length); // sort by length so longer words are matched first thnks autocomplete
 
@@ -19,22 +47,6 @@ const par = document.createElement("span"); // dont use mark use smt else for ac
 
 
 
-
-// const texttest = "example domain domain example test tes yaaaa";
-
-// const colours = {"blue": }
-// let texttoHighlight = texttest;
-
-// listy.forEach(word => {
-//     const regex = new RegExp(`\\b${word}\\b`, 'gi');
-//     texttoHighlight = texttoHighlight.replace(regex, `<span style="background-color:  rgba(85, 205, 252, 0.5);">${word}</span>`)
-
-// });
-
-// par.textContent = "meopw";
-
-
-// par.innerHTML = texttoHighlight;
 // LLM slop regex as i hate regex
 
 
@@ -44,6 +56,8 @@ const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 // Create a combined regex pattern with word boundaries
 const pattern = listy.map(word => `\\b${escapeRegExp(word)}\\b`).join('|');
 const regex = new RegExp(`(${pattern})`, 'gi');
+
+
 
 
 
