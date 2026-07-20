@@ -1,3 +1,5 @@
+//// ok i genuinely hate js so much pardon the code
+
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Modify_a_web_page
 // document.body.style.border = "5px solid red"; //leave for test it loads until prod
 
