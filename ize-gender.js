@@ -3,11 +3,23 @@
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Modify_a_web_page
 // document.body.style.border = "5px solid red"; //leave for test it loads until prod
 
-const unsoredlisty = ["example", "domain", "documentation", "test", "examples","Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations."];
+
+
+// const colours = {
+//     "blue":rgba(85, 205, 252, 1)
+//     "pink": rgba(247, 168, 184, 1)
+// }
+
+
+const unsoredlisty = ["example", "domain", "documentation", "test", "examples","orion", "power", "claude", "fable", "minecraft", "bananas", "homelab", "qwen", "who", "america", "joined", "robotics", "moonshine"];
 
 const listy = unsoredlisty.sort((a,b)=>b.length-a.length); // sort by length so longer words are matched first thnks autocomplete
 
 const par = document.createElement("span"); // dont use mark use smt else for accessbility ig
+
+
+
+
 // const texttest = "example domain domain example test tes yaaaa";
 
 // const colours = {"blue": }
@@ -22,6 +34,7 @@ const par = document.createElement("span"); // dont use mark use smt else for ac
 // par.textContent = "meopw";
 
 
+// par.innerHTML = texttoHighlight;
 // LLM slop regex as i hate regex
 
 
@@ -34,7 +47,6 @@ const regex = new RegExp(`(${pattern})`, 'gi');
 
 
 
-par.innerHTML = texttoHighlight;
 
 document.body.prepend(par);
 // todo: find # use treewalker
