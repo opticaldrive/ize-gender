@@ -10,42 +10,9 @@
 //     "pink": rgba(247, 168, 184, 1)
 // }
 
-// CSV loading code
-
-
-async function loadCSV() {
-    const csvURL = browser.runtime.getURL("assets/data.csv");
-    const response = await fetch(csvURL);
-
-    if (!response.ok) {
-        throw new Error(`Could not load CSV: ${response.status} 3:`);
-    }
-
-    const text = await response.text();
-    const lines = text.trim().split(/\r?\n/);
-
-    const data = {};
-
-    // Start at 1 to skip the header. ofc
-    for (let i = 1; i < lines.length; i++) {
-        const [name, gender, score] = lines[i].split(",");
-
-        data[name.trim()] = {
-            gender: gender.trim(),
-            score: Number(score.trim())
-        };
-    }
-
-    return data;
-}
-// debug listy
-
-
-
-const unsoredlisty = ["example", "domain", "documentation", "test", "examples","orion", "power", "claude", "fable", "minecraft", "bananas", "homelab", "qwen", "who", "america", "joined", "robotics", "moonshine"];
-
-
-const listy = unsoredlisty.sort((a,b)=>b.length-a.length); // sort by length so longer words are matched first thnks autocomplete
+async function main() {
+const genderData = await browser.runtime.sendMessage({type: "getGenderData"});
+const listy = Object.keys(genderData).sort((a,b)=>b.length-a.length); // sort by length so longer words are matched first thnks autocomplete
 
 const par = document.createElement("span"); // dont use mark use smt else for accessbility ig
 
@@ -126,3 +93,6 @@ textnodes.forEach(node=>{
 })
 // todo: mark/highlight
 
+}
+
+main().catch(error => console.error("Could not process gender data:", error));

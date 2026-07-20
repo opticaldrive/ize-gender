@@ -14,17 +14,15 @@
         }
       }
     },
+
+    "background": {
+      "scripts": ["background.js"]
+    },
   
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
         "js": ["ize-gender.js"]
       }
-    ],
-    "web_accessible_resources": [
-      {
-        "resources": ["assets/data.csv"],
-        "matches": ["<all_urls>"]
-      }
-    ]   
+    ]
 }
