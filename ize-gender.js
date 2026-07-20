@@ -13,27 +13,31 @@
 // CSV loading code
 const csv_path = browser.runtime.getURL("assets/data.csv")
 
-fetch(csv_path)
-    .then(res=>res.text())
-    .then(text=>{
-        const lines = text.split("\n");
-        const listy = lines.map(line => line.trim()).filter(line => line.length > 0);
-        
-        const dict = {};
-        // gotta skip the header #1 bc its the header /no data
-        for (let i = 1; i < listy.length; i++) {
-            const columns = listy[i].split(",");
-            
-            const nameKey = columns[0].trim();
-            
-            dict[nameKey] = {
-                gender: columns[1].trim(),
-                score: parseFloat(columns[2].trim())
-            };
-        }
+async function loadCSV() {
+    const csvURL = browser.runtime.getURL("assets/data.csv");
+    const response = await fetch(csvURL);
 
-        console.log(dict);
-    });
+    if (!response.ok) {
+        throw new Error(`Could not load CSV: ${response.status} 3:`);
+    }
+
+    const text = await response.text();
+    const lines = text.trim().split(/\r?\n/);
+
+    const data = {};
+
+    // Start at 1 to skip the header. ofc
+    for (let i = 1; i < lines.length; i++) {
+        const [name, gender, score] = lines[i].split(",");
+
+        data[name.trim()] = {
+            gender: gender.trim(),
+            score: Number(score.trim())
+        };
+    }
+
+    return data;
+}
 // debug listy
 
 
