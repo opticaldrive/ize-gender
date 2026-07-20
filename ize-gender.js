@@ -11,7 +11,7 @@
 // }
 
 // CSV loading code
-const csv_path = browser.runtime.getURL("assets/data.csv")
+
 
 async function loadCSV() {
     const csvURL = browser.runtime.getURL("assets/data.csv");
