@@ -3,8 +3,6 @@
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Modify_a_web_page
 
 
-
-
 // const colours = {
 //     "blue":rgba(85, 205, 252, 1)
 //     "pink": rgba(247, 168, 184, 1)
