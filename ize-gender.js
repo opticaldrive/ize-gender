@@ -1,9 +1,10 @@
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Modify_a_web_page
-document.body.style.border = "5px solid red"; //leave for test it loads until prod
+// document.body.style.border = "5px solid red"; //leave for test it loads until prod
+
 const listy = ["example", "domain", "documentation", "test", "examples","Example Domain This domain is for use in documentation examples without needing permission. Avoid use in operations."];
 
 const par = document.createElement("span"); // dont use mark use smt else for accessbility ig
-const texttest = "example domain domain example test test";
+const texttest = "example domain domain example test tes yaaaa";
 
 // const colours = {"blue": }
 let texttoHighlight = texttest;
@@ -15,6 +16,19 @@ listy.forEach(word => {
 });
 
 // par.textContent = "meopw";
+
+
+// LLM slop regex as i hate regex
+
+
+// Escape special regex characters
+const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+// Create a combined regex pattern with word boundaries
+const pattern = listy.map(word => `\\b${escapeRegExp(word)}\\b`).join('|');
+const regex = new RegExp(`(${pattern})`, 'gi');
+
+
 
 par.innerHTML = texttoHighlight;
 
@@ -47,7 +61,34 @@ while (treewalker.nextNode()){
 textnodes.forEach(node=>{
     console.log(node.nodeValue);
     const text = node.nodeValue;
+
+    // llm vibeslop that tries to replaces stuff hmph
+
+    // Skip if no match
+    if (!regex.test(text)) return;
     
+    regex.lastIndex = 0; // Reset regex state
+    const fragment = document.createDocumentFragment();
+    const parts = text.split(regex);
+
+    parts.forEach(part => {
+        // Check if the part matches a word in our list
+        const isMatch = listy.some(word => word.toLowerCase() === part.toLowerCase());
+        
+        if (isMatch) {
+            const span = document.createElement("span");
+            // Soft accessible blue highlight background
+            span.style.backgroundColor = "rgba(85, 205, 252, 0.4)"; 
+            // span.style.borderBottom = "2px solid #0056b3"; # i didnt want this smh gemini 
+            span.textContent = part;
+            fragment.appendChild(span);
+        } else if (part) {
+            fragment.appendChild(document.createTextNode(part));
+        }
+    });
+
+    node.parentNode.replaceChild(fragment, node);
+
 })
 // todo: mark/highlight
 
