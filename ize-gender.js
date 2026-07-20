@@ -72,13 +72,19 @@ textnodes.forEach(node=>{
 
     parts.forEach(part => {
         // Check if the part matches a word in our list
-        const isMatch = listy.some(word => word.toLowerCase() === part.toLowerCase());
+        // const entry = listy.some(word => word.toLowerCase() === part.toLowerCase());
+        const entry = genderData[part.toLowerCase()];
         
-        if (isMatch) {
+        
+        if (entry) {
             const span = document.createElement("span");
-            // Soft accessible blue highlight background
-            span.style.backgroundColor = "rgba(85, 205, 252, 0.4)"; 
-            // span.style.borderBottom = "2px solid #0056b3"; # i didnt want this smh gemini 
+            const opacity = entry.score / 100;
+            if (entry.gender === "male"){
+                span.style.backgroundColor = "rgba(85, 205, 252, ${opacity})";
+            } else if (entry.gender ==="female"){
+                span.style.backgroundColor = "rgba(247, 168, 184, ${opacity})";
+            }
+           
             span.textContent = part;
             fragment.appendChild(span);
         } else if (part) {
