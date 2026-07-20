@@ -80,9 +80,9 @@ textnodes.forEach(node=>{
             const span = document.createElement("span");
             const opacity = entry.score / 100;
             if (entry.gender === "male"){
-                span.style.backgroundColor = "rgba(85, 205, 252, ${opacity})";
+                span.style.backgroundColor = `rgba(85, 205, 252, ${opacity})`;
             } else if (entry.gender ==="female"){
-                span.style.backgroundColor = "rgba(247, 168, 184, ${opacity})";
+                span.style.backgroundColor = `rgba(247, 168, 184, ${opacity})`;
             }
            
             span.textContent = part;
