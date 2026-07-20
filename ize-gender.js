@@ -33,8 +33,21 @@ const treewalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT
     }
 })
 
+const textnodes = [];
 while (treewalker.nextNode()){
-    console.log(treewalker.currentNode)
+    textnodes.push(treewalker.currentNode)
 }
+
+// while (treewalker.nextNode()){
+//     console.log(treewalker.currentNode)
+//     treewalker.frage
+// }
+
+
+textnodes.forEach(node=>{
+    console.log(node.nodeValue);
+    const text = node.nodeValue;
+    
+})
 // todo: mark/highlight
 
